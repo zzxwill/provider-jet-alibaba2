@@ -25,8 +25,8 @@ import (
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "alicloud"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-alicloud"
 )
 
 //go:embed schema.json
