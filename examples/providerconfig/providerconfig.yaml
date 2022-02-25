@@ -6,6 +6,6 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: example-creds
-      namespace: crossplane-system
+      namespace: vela-system
+      name: alibaba-account-creds
       key: credentials

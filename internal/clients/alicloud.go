@@ -31,13 +31,16 @@ import (
 )
 
 const (
-	keyAK   = "accessKeyID"
-	keySK   = "accessKeySecret"
-	keyHost = "host"
+	AccessKeyID     = "accessKeyID"
+	AccessKeySecret = "accessKeySecret"
+	SecurityToken   = "securityToken"
+	Region          = "region"
 
 	// Alicloud credentials environment variable names
-	envAK = "ALICLOUD_ACCESS_KEY"
-	envSK = "ALICLOUD_SECRET_KEY"
+	envAlicloudAcessKey  = "ALICLOUD_ACCESS_KEY"
+	envAlicloudSecretKey = "ALICLOUD_SECRET_KEY"
+	envAlicloudRegion    = "ALICLOUD_REGION"
+	envAliCloudStsToken  = "ALICLOUD_SECURITY_TOKEN"
 )
 
 const (
@@ -88,12 +91,14 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		// set provider configuration
 		ps.Configuration = map[string]interface{}{
-			"host": alicloudCreds[keyHost],
+			"region": alicloudCreds[Region],
 		}
 		// set environment variables for sensitive provider configuration
 		ps.Env = []string{
-			fmt.Sprintf(fmtEnvVar, envAK, alicloudCreds[keyAK]),
-			fmt.Sprintf(fmtEnvVar, envSK, alicloudCreds[keySK]),
+			fmt.Sprintf(fmtEnvVar, envAlicloudAcessKey, alicloudCreds[AccessKeyID]),
+			fmt.Sprintf(fmtEnvVar, envAlicloudSecretKey, alicloudCreds[AccessKeySecret]),
+			fmt.Sprintf(fmtEnvVar, envAlicloudRegion, alicloudCreds[Region]),
+			fmt.Sprintf(fmtEnvVar, envAliCloudStsToken, alicloudCreds[SecurityToken]),
 		}
 		return ps, nil
 	}

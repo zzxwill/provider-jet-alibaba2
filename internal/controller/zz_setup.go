@@ -21,7 +21,6 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	resource "github.com/crossplane-contrib/provider-jet-alicloud/internal/controller/null/resource"
 	providerconfig "github.com/crossplane-contrib/provider-jet-alicloud/internal/controller/providerconfig"
 )
 
@@ -29,7 +28,6 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

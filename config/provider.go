@@ -19,7 +19,9 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
+	oss "github.com/crossplane-contrib/provider-jet-alicloud/config/oss/bucket"
 
+	"github.com/crossplane-contrib/provider-jet-alicloud/config/vpc"
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
@@ -42,10 +44,16 @@ func GetProvider() *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+		tjconfig.WithIncludeList([]string{
+			"alicloud_vpc$",
+			"alicloud_oss_bucket$",
+		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
+		vpc.Configure,
+		oss.Configure,
 	} {
 		configure(pc)
 	}
